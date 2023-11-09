@@ -1,33 +1,44 @@
 .container {
     display: flex;
-    justify-content: space-between;
-    margin-left: 10%;
+    justify-content: flex-start;
+    /* Mudado para 'flex-start' para alinhar os itens ao começo */
+    gap: 20px;
+    /* Isso cria um espaço entre os itens de flex */
+    padding: 10px;
+    /* Espaço ao redor do container */
+    margin: 0 auto;
+    /* Centraliza o container se houver espaço disponível */
+    max-width: 1200px;
+    /* Defina um max-width se necessário para um layout mais controlado */
 }
 
 .filtro-card {
-    background-color: #555;
+    background-color: rgba(85, 85, 85, 0.8);
     color: white;
     padding: 20px;
-    margin: 10px;
     border-radius: 8px;
     width: 200px;
-    box-sizing: border-box;
+    flex-shrink: 0;
+    /* Isso impede que o filtro-card encolha quando a largura da tela diminuir */
 }
 
 .feiras-container {
+    flex-grow: 1;
+    /* Isso faz com que o feiras-container preencha o espaço restante */
     display: flex;
     flex-direction: column;
-    max-width: calc(100% - 220px);
-    width: 100%;
 }
 
 .feira-card {
-    background-color: #ffffff;
+    background-color: rgba(51, 51, 51, 0.8);
     color: white;
     padding: 20px;
     margin: 10px 0;
     border-radius: 8px;
     position: relative;
+    width: 100%;
+    height: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .feira-card h3 {
