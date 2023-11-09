@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import '../styles/signup.css'; 
+import '../styles/SignUp.css'; 
 
 export default function SignUp() {
   const [name, setName] = useState<string>('');
@@ -18,8 +18,7 @@ export default function SignUp() {
   const toggleConfirmPasswordVisibility = () => setConfirmPasswordShown(!confirmPasswordShown);
 
   const cadastrar = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault(); // Impede o comportamento padrão do formulário se estiver usando dentro de <form>
-    // Implemente a lógica de cadastro
+    event.preventDefault(); 
     console.log("Nome:", name, "Usuário:", username, "Senha:", password, "Confirmar Senha:", confirmPassword);
   };
 
@@ -94,7 +93,6 @@ export default function SignUp() {
         <div className='justify-center'>
           <button onClick={cadastrar}>Cadastrar</button>
         </div>
-
       </div>
     </div>
   );

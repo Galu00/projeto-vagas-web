@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../styles/IndexPage.css';
 
 interface User {
   nome: string;
@@ -10,12 +11,11 @@ interface User {
 
 export default function IndexPage() {
   const [userLogado, setUserLogado] = useState<User | null>(null);
-  const navigate = useNavigate(); // para react-router-dom v6.x
-
+  const navigate = useNavigate(); 
   useEffect(() => {
     if (localStorage.getItem("token") === null) {
       alert("Você precisa estar logado para acessar essa página");
-      navigate('/signin'); // Navega para a página de login se não houver token.
+      navigate('/signin'); 
     } else {
       const user = localStorage.getItem('userLogado');
       if (user) {
@@ -31,7 +31,7 @@ export default function IndexPage() {
   };
 
   if (!userLogado) {
-    return null; // Ou substitua por um componente de spinner/loader se desejar.
+    return null;
   }
 
   return (

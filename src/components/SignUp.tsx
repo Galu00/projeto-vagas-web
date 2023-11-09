@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './signup.css'; // Atualize com o caminho correto do seu CSS
+import '../styles/SignUp.css';
 
 export const SignUp: React.FC = () => {
   const [name, setName] = useState('');
@@ -57,21 +57,66 @@ export const SignUp: React.FC = () => {
       setMessage({ ...message, success: 'Cadastrando usuário...', error: '' });
 
       setTimeout(() => {
-        navigate('/signin'); // Redireciona para a página de login após cadastro
+        navigate('/signin');
       }, 2000);
     } else {
       setMessage({ ...message, error: 'Preencha todos os campos corretamente antes de cadastrar', success: '' });
     }
   };
+  const togglePasswordVisibility = () => {
+    setPasswordShown(!passwordShown);
+  };
 
+  const toggleConfirmPasswordVisibility = () => {
+    setConfirmPasswordShown(!confirmPasswordShown);
+  };
   return (
     <div className='container'>
       <div className='card'>
         <h1>Cadastrar</h1>
-        {message.error && <div id='msgError' style={{ color: 'red' }}>{message.error}</div>}
-        {message.success && <div id='msgSuccess' style={{ display: 'block' }}>{message.success}</div>}
-        {/* Os campos de entrada seguirão aqui, com seus respectivos estados e manipuladores */}
-        {/* Implemente os campos de entrada e botões como feito anteriormente, usando os estados e as funções de validação. */}
+        {message.error && <div className='msgError'>{message.error}</div>}
+        {message.success && <div className='msgSuccess'>{message.success}</div>}
+        <div className='label-float'>
+          <input
+            type='text'
+            value={name}
+            onChange={(e) => handleInputChange('name', e.target.value)}
+            required
+          />
+          <label>Nome</label>
+        </div>
+        <div className='label-float'>
+          <input
+            type='text'
+            value={username}
+            onChange={(e) => handleInputChange('username', e.target.value)}
+            required
+          />
+          <label>Usuário</label>
+        </div>
+        <div className='label-float'>
+          <input
+            type={passwordShown ? 'text' : 'password'}
+            value={password}
+            onChange={(e) => handleInputChange('password', e.target.value)}
+            required
+          />
+          <label>Senha</label>
+          <i className="fa fa-eye password-icon" onClick={togglePasswordVisibility}></i>
+        </div>
+        <div className='label-float'>
+          <input
+            type={confirmPasswordShown ? 'text' : 'password'}
+            value={confirmPassword}
+            onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
+            required
+          />
+          <label>Confirmar Senha</label>
+          <i className="fa fa-eye password-icon" onClick={toggleConfirmPasswordVisibility}></i>
+        </div>
+        <div className='justify-center'>
+          <button onClick={cadastrar}>Cadastrar</button>
+        </div>
       </div>
     </div>
   );

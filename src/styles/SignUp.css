@@ -7,7 +7,7 @@
 }
 
 body {
-  background-image: url(../images/signup-bg.jpg);
+  background-image: url(../assets/images/signup-bg.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed
@@ -63,7 +63,7 @@ h1{
 
 .label-float label{
   color: #0d009c;
-  pointer-event: none;
+  pointer-events: none;
   position: absolute;
   top: 0;
   left: 0;

@@ -10,7 +10,7 @@ header {
     box-shadow: 0px 3px 10px #464646;
 }
 body {
-  background-image: url("../images/index-bg.jpg");
+  background-image: url("../assets/images/index-bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed
