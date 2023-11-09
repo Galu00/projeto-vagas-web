@@ -1,41 +1,44 @@
 import { useState } from "react";
 import "../styles/SignUp.css";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/UseAuth";
 
 export default function SignUp() {
-  const [name, setName] = useState<string>("");
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const [passwordShown, setPasswordShown] = useState<boolean>(false);
-  const [confirmPasswordShown, setConfirmPasswordShown] =
-    useState<boolean>(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [telefone, settelefone] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [passwordShown, setPasswordShown] = useState(false);
+  const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
+  const navigate = useNavigate();
+  const { register } = useAuth();
 
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setName(event.target.value);
-  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setUsername(event.target.value);
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setPassword(event.target.value);
-  const handleConfirmPasswordChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => setConfirmPassword(event.target.value);
+  const handleNameChange = (event: any) => setName(event.target.value);
+  const handleEmailChange = (event: any) => setEmail(event.target.value);
+  const handlePasswordChange = (event: any) => setPassword(event.target.value);
+  const handleConfirmPasswordChange = (event: any) =>
+    setConfirmPassword(event.target.value);
 
   const togglePasswordVisibility = () => setPasswordShown(!passwordShown);
   const toggleConfirmPasswordVisibility = () =>
     setConfirmPasswordShown(!confirmPasswordShown);
 
-  const cadastrar = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    console.log(
-      "Nome:",
-      name,
-      "Usuário:",
-      username,
-      "Senha:",
-      password,
-      "Confirmar Senha:",
-      confirmPassword
-    );
+  const handleRegister = async (event: any) => {
+    event.preventDefault(); // Prevent the default form submit behavior
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    try {
+      await register(name, email, password, "phoneNumber");
+      navigate("/SignUp"); // Navigate to the dashboard on successful registration
+    } catch (registrationError: any) {
+      setError(registrationError.message);
+    }
   };
 
   return (
@@ -43,8 +46,7 @@ export default function SignUp() {
       <div className="card">
         <h1>Cadastrar</h1>
 
-        <div id="msgError"></div>
-        <div id="msgSuccess"></div>
+        {error && <div id="msgError">{error}</div>}
 
         <div className="label-float">
           <input
@@ -64,8 +66,8 @@ export default function SignUp() {
             id="usuario"
             placeholder=" "
             required
-            value={username}
-            onChange={handleUsernameChange}
+            value={email}
+            onChange={handleEmailChange}
           />
           <label htmlFor="usuario">Usuário</label>
         </div>
@@ -79,13 +81,12 @@ export default function SignUp() {
             value={password}
             onChange={handlePasswordChange}
           />
-          <label htmlFor="senha">Senha</label>
           <i
-            id="verSenha"
             className="fa fa-eye"
             aria-hidden="true"
             onClick={togglePasswordVisibility}
           ></i>
+          <label htmlFor="senha">Senha</label>
         </div>
 
         <div className="label-float">
@@ -97,17 +98,23 @@ export default function SignUp() {
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
           />
-          <label htmlFor="confirmSenha">Confirmar Senha</label>
           <i
-            id="verConfirmSenha"
             className="fa fa-eye"
             aria-hidden="true"
             onClick={toggleConfirmPasswordVisibility}
           ></i>
+          <label htmlFor="confirmSenha">Confirmar Senha</label>
         </div>
 
         <div className="justify-center">
-          <button onClick={cadastrar}>Cadastrar</button>
+          <button
+            onClick={(event) => {
+              event.preventDefault();
+              register(name, email, password, telefone).catch(console.error);
+            }}
+          >
+            Cadastrar
+          </button>
         </div>
       </div>
     </div>

@@ -1,4 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+:root {
+  --primary-color: #272262;
+  --hover-color: #4038a0;
+  --error-background: #ffbbbb;
+  --error-text: #ff0000;
+  --button-hover-bg: #ebebeb;
+  --button-text: #ffffff;
+  --link-color: #7a3077;
+  --link-hover-color: --primary-color;
+  --input-transition: all .3s ease-out;
+  --button-transition: all .4s ease-out;
+  --label-transition: all .3s ease-out;
+}
 
 * {
   margin: 0;
@@ -7,11 +21,8 @@
 }
 
 body {
-  background-image: url("../assets/images/signin-bg.jpg");
-  background-repeat: no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../assets/images/signin-bg.jpg") no-repeat center center fixed;
   background-size: cover;
-  background-attachment: fixed
-  
 }
 
 .container {
@@ -22,65 +33,64 @@ body {
 }
 
 .card {
-  background-color: #ffffff80;
+  background-color: var(--primary-color)80;
+  /* Adjusted for RGBA color with opacity */
   padding: 30px;
   border-radius: 4%;
-  box-shadow: 3px 3px 1px 0px #00000060
+  box-shadow: 3px 3px 1px #00000060;
 }
 
-h1{
+h1 {
   text-align: center;
   margin-bottom: 20px;
-  color: #272262
+  color: var(--primary-color);
 }
 
-.label-float input{
-  width: 100%;
-  padding: 5px 5px;
-  display: inline-block;
-  border: 0;
-  border-bottom: 2px solid #272262;
-  background-color: transparent;
-  outline: none;
-  min-width: 180px;
-  font-size: 16px;
-  transition: all .3s ease-out;
-  border-radius: 0;
-  
-}
-
-.label-float{
+.label-float {
   position: relative;
-  padding-top: 13px;
   margin-top: 5%;
   margin-bottom: 5%;
 }
 
-.label-float input:focus{
-  border-bottom: 2px solid #4038a0;
+.label-float input {
+  width: 100%;
+  padding: 5px;
+  display: block;
+  /* Changed from inline-block for consistency */
+  border: 0;
+  background-color: transparent;
+  outline: none;
+  min-width: 180px;
+  font-size: 16px;
+  transition: var(--input-transition);
+  border-radius: 0;
+  border-bottom: 2px solid var(--primary-color);
 }
 
-.label-float label{
-  color: #272262;
-  pointer-events: none;
+.label-float input:focus {
+  border-bottom: 2px solid var(--hover-color);
+}
+
+.label-float label {
+  color: var(--primary-color);
   position: absolute;
   top: 0;
   left: 0;
   margin-top: 13px;
-  transition: all .3s ease-out;
+  transition: var(--label-transition);
 }
 
-.label-float input:focus + label,
-.label-float input:valid + label{
+.label-float input:focus+label,
+.label-float input:valid+label {
   font-size: 13px;
   margin-top: 0;
-  color: #4038a0
+  color: var(--hover-color);
 }
 
-button{
+button {
   background-color: transparent;
-  border-color: #272262;
-  color: #272262;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
   padding: 7px;
   font-weight: bold;
   font-size: 12pt;
@@ -88,55 +98,51 @@ button{
   border-radius: 4px;
   cursor: pointer;
   outline: none;
-  transition: all .4s ease-out;
+  transition: var(--button-transition);
 }
 
-button:hover{
-  background-color: #272262;
-  color: #fff;
+button:hover {
+  background-color: var(--button-hover-bg);
+  color: var(--button-text);
 }
 
-.justify-center{
-  display: flex;
-  justify-content: center;
-}
-
-hr{
-  margin-top: 10%;
-  margin-bottom: 10%;
+hr {
+  margin: 5% auto;
+  /* Adjusted for a more symmetrical look */
   width: 60%;
 }
 
-p{
-  color: #272262;
-  font-size: 14pt;
+p,
+a {
   text-align: center;
+  /* Centered text for 'a' for consistency */
+  color: var(--button-text);
+  font-size: 20pt;
 }
 
-a{
-  color: #7a3077;
+a {
+  color: var(--link-color);
   font-weight: bold;
   text-decoration: none;
-  transition: all .3s ease-out;
+  transition: var(--button-transition);
 }
 
-a:hover{
-  color: #272262;
+a:hover {
+  color: var(--link-hover-color);
 }
 
-.fa-eye{
+.fa-eye {
   position: absolute;
   top: 15px;
   right: 10px;
   cursor: pointer;
-  color: #272262;
+  color: var(--primary-color);
 }
 
- #msgError{
+#msgError {
   text-align: center;
-  color: #ff0000;
-  background-color: #ffbbbb;
+  color: var(--error-text);
+  background-color: var(--error-background);
   padding: 10px;
   border-radius: 4px;
-  display: none;
 }

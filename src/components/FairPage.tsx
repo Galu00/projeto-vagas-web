@@ -56,10 +56,19 @@ const FeiraConnectPage: React.FC = () => {
       <div className="feiras-container">
         {feiras.map((feira) => (
           <div key={feira.id} className="feira-card">
-            <h3>{feira.nome}</h3>
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                feira.local
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "white", textDecoration: "none" }}
+            >
+              <h3>{feira.nome}</h3>
+            </a>
             <p>Local: {feira.local}</p>
             <p>Data: {new Date(feira.data).toLocaleDateString()}</p>
-            <p>Descrição: {feira.description}</p>
+            <p id="description">Descrição: {feira.description}</p>
           </div>
         ))}
       </div>

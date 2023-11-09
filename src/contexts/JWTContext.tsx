@@ -49,7 +49,7 @@ type LogoutAction = {
 type RegisterAction = {
   type: "REGISTER";
   payload: {
-    user?: User;
+    user: User;
   };
 };
 
@@ -113,13 +113,12 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Asynchronous initialization function
     const initialize = async () => {
       try {
         const token = sessionStorage.getItem("token");
         if (token) {
           axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-          const user = await authApiEx.me(token);
+          const user = await authApiEx.me();
           dispatch({
             type: "INITIALIZE",
             payload: { isAuthenticated: true, user },
@@ -146,11 +145,10 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (email: string, password: string): Promise<void> => {
     try {
-      console.log("Trying to login", email, password);
       const accessToken = await authApiEx.doAuthSupervisory(email, password);
       if (typeof accessToken === "string") {
         sessionStorage.setItem("token", accessToken);
-        const user = await authApiEx.me(accessToken); // Agora passamos o token como argumento
+        const user = await authApiEx.me();
         dispatch({
           type: "LOGIN",
           payload: { user },
@@ -172,22 +170,26 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     navigate("/login", { replace: true });
   };
 
-  const register = async (body: any): Promise<void> => {
-    // const accessToken = await authApiEx.register(body);
-
-    await authApiEx.register(body);
-
-    // window.sessionStorage.setItem('token', accessToken);
-
-    // const user = await authApiEx.me();
-
-    dispatch({
-      type: "REGISTER",
-      payload: {
-        // user
-      },
-    });
+  const register = async (userData: User): Promise<void> => {
+    try {
+      const response = await authApiEx.register(userData);
+      if (typeof response === "string") {
+        sessionStorage.setItem("token", response); // Supõe-se que a resposta tenha a informação do usuário
+        const newUser = await authApiEx.me();
+        dispatch({
+          type: "REGISTER",
+          payload: { user: newUser },
+        });
+        navigate("/index");
+      } else {
+        console.error("Received accessToken is not a string:", response);
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      throw error;
+    }
   };
+
   return (
     <AuthContext.Provider
       value={{ ...state, platform: "JWT", login, logout, register }}

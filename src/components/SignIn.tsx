@@ -89,7 +89,6 @@ export const SignIn: React.FC = () => {
         <div className="justify-center">
           <button onClick={entrar}>Entrar</button>
         </div>
-        {/* Outros elementos do formulário */}
       </div>
     </div>
   );
