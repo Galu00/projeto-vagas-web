@@ -1,0 +1,62 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10%;
+}
+
+.filtro-card {
+    background-color: #555;
+    color: white;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 8px;
+    width: 200px;
+    box-sizing: border-box;
+}
+
+.feiras-container {
+    display: flex;
+    flex-direction: column;
+    max-width: calc(100% - 220px);
+    width: 100%;
+}
+
+.feira-card {
+    background-color: #ffffff;
+    color: white;
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 8px;
+    position: relative;
+}
+
+.feira-card h3 {
+    margin: 0;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.feira-card>p {
+    margin: 0;
+    position: absolute;
+    padding: 0 20px;
+}
+
+.feira-card>p:nth-child(2) {
+    top: 20px;
+    right: 20px;
+}
+
+.feira-card>p:nth-child(3) {
+    bottom: 20px;
+    left: 20px;
+}
+
+.feira-card>p:nth-child(4) {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - 40px);
+    text-align: center;
+}

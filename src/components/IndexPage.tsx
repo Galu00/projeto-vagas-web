@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/IndexPage.css";
+import FairPage from "./FairPage";
 
 interface User {
   nome: string;
@@ -48,7 +49,8 @@ export default function IndexPage() {
 
   return (
     <div>
-      <p id="logado">Olá {userLogado.nome}</p>
+      <h1 id="Usuário logado">Olá {userLogado.nome}</h1>
+      <FairPage />
       <button onClick={sair}>Sair</button>
     </div>
   );
