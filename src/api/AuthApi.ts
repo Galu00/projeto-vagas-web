@@ -13,23 +13,30 @@ class AuthApiEx {
       });
       console.log("Token Received: ", response.data);
 
-      const tokenPart = response.data.token.startsWith("Bearer ")
+      const token = response.data.token.startsWith("Bearer ")
         ? response.data.token.slice("Bearer ".length)
         : response.data.token;
 
-      return tokenPart; // You should return the token part where 'Bearer ' is removed
+      // Armazenar o token no Local Storage
+      localStorage.setItem("authToken", token);
+      localStorage.setItem("userId", response.data.id.toString());
+
+      return token;
     } catch (error) {
       console.error("Error during login: ", error);
       throw error;
     }
   }
 
-  async me(tokenObject: { id: number; token: string }): Promise<User> {
-    console.log("UserID for me():", tokenObject.id);
+  async me(): Promise<User> {
     try {
-      // Use the ID from the token object to construct the URL
-      const { data } = await axiosInstance.get(`/usuarios/${1}`);
-      return data.user;
+      const userId = localStorage.getItem("userId");
+      if (!userId) throw new Error("User ID not found");
+
+      const { data } = await axiosInstance.get(`/usuarios/${userId}`);
+      console.log("User data retrieved", data);
+      localStorage.setItem("userData", JSON.stringify(data));
+      return data;
     } catch (error) {
       console.error("Error fetching user data: ", error);
       throw error;

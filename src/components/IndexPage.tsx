@@ -14,9 +14,8 @@ export default function IndexPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Recuperando o token e os dados do usuário do localStorage
-    const token = localStorage.getItem("token");
-    const userData = localStorage.getItem("userLogado");
+    const token = localStorage.getItem("authToken");
+    const userData = localStorage.getItem("userData");
 
     console.log("Token atual:", token); // Adicione esta linha para ver o token atual no console
     console.log("Dados do usuário atual:", userData); // E esta para ver os dados do usuário
@@ -38,8 +37,8 @@ export default function IndexPage() {
   }, [navigate]);
 
   const sair = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userLogado");
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("userData");
     navigate("/signin");
   };
 
